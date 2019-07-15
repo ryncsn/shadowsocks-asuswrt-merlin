@@ -50,7 +50,7 @@ if ipset create localips hash:net 2> /dev/null; then
   IFS=${OLDIFS}
 fi
 
-# Add user_ip_whitelist.txt
+# Add whitelist
 if ipset create whitelist hash:ip 2> /dev/null; then
   china_dns_ip=119.29.29.29
   remote_server_address=$(cat ${SS_MERLIN_HOME}/etc/shadowsocks/config.json | grep 'server"' | cut -d ':' -f 2 | cut -d '"' -f 2)
@@ -92,6 +92,7 @@ if iptables -t nat -N SHADOWSOCKS_TCP 2> /dev/null; then
   iptables -t nat -A PREROUTING -j SS_PREROUTING
   iptables -t nat -A SHADOWSOCKS_TCP -m set --match-set localips dst -j RETURN
   iptables -t nat -A SHADOWSOCKS_TCP -m set --match-set whitelist dst -j RETURN
+  iptables -t nat -A SHADOWSOCKS_TCP -m set --match-set userwhitelist dst -j RETURN
   if [[ ${mode} -eq 1 ]]; then
     iptables -t nat -A SHADOWSOCKS_TCP -m set --match-set chinaips dst -j RETURN
   fi
@@ -117,6 +118,7 @@ if [[ ${udp} -eq 1 ]]; then
     iptables -t mangle -A PREROUTING -j SS_PREROUTING
     iptables -t mangle -A SHADOWSOCKS_UDP -p udp -m set --match-set localips dst -j RETURN
     iptables -t mangle -A SHADOWSOCKS_UDP -p udp -m set --match-set whitelist dst -j RETURN
+    iptables -t mangle -A SHADOWSOCKS_UDP -p udp -m set --match-set userwhitelist dst -j RETURN
     if [[ ${mode} -eq 1 ]]; then
       iptables -t mangle -A SHADOWSOCKS_UDP -p udp -m set --match-set chinaips dst -j RETURN
     fi
