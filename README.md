@@ -4,6 +4,9 @@ shadowsocks-asuswrt-merlin will install `shadowsocks-libev` and `v2ray-plugin` o
 
 For server side set up, you can easily install shadowsocks server and v2ray-plugin with docker by [https://github.com/Acris/docker-shadowsocks-libev](https://github.com/Acris/docker-shadowsocks-libev).
 
+## Important notice
+**Due to an automatic upgrade issue, for users whose shadowsocks-asuswrt-merlin version is before 2019/08/11, please uninstall it by `ss-merlin uninstall` and reinstall it again.**
+
 ## Getting Started
 
 ### Prerequisites
@@ -60,6 +63,10 @@ cd /opt/share/ss-merlin/etc
 cp ss-merlin.sample.conf ss-merlin.conf
 vi ss-merlin.conf
 ```
+
+Configure which LAN IP will pass transparent proxy by edit `lan_ips`, you can assign a LAN IP like 192.169.1.125 means only this device can pass transparent proxy.
+
+And you can change the default DNS server for Chinese IPs by modifying `china_dns_ip`.
 
 Then, start the service:
 ```sh
