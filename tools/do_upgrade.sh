@@ -6,6 +6,12 @@ ansi_red="\033[1;31m"
 ansi_green="\033[1;32m"
 ansi_std="\033[m"
 
+echo -e "$ansi_green Executing pre-upgrade commands... $ansi_std"
+opkg update
+opkg remove --autoremove unbound
+opkg install unbound-daemon
+git checkout ${SS_MERLIN_HOME}/tools/do_upgrade.sh
+
 echo -e "$ansi_green Updating source code... $ansi_std"
 cd ${SS_MERLIN_HOME}
 if git pull; then
