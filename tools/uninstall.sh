@@ -1,9 +1,7 @@
-#!/bin/sh
+#!/bin/ash
 
 uninstall() {
-  ansi_red="\033[1;31m"
   ansi_green="\033[1;32m"
-  ansi_yellow="\033[1;33m"
   ansi_std="\033[m"
 
   SS_MERLIN_HOME=/opt/share/ss-merlin
@@ -21,7 +19,6 @@ uninstall() {
   cru d update-dns-whitelist
   cru d update-gfwlist
   cru d upgrade-ss-merlin
-  cru d statistics
 
   echo -e "$ansi_green Stopping all services... $ansi_std"
   ${SS_MERLIN_HOME}/scripts/stop_all_services.sh
