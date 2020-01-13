@@ -6,17 +6,17 @@ upgrade() {
   # Switch to master branch
   cd ${SS_MERLIN_HOME} || exit
   if [[ -f ${SS_MERLIN_HOME}/etc/ss-merlin.conf ]]; then
-    cp ${SS_MERLIN_HOME}/etc/ss-merlin.conf /tmp/ss-merlin/ss-merlin.conf
+    cp -a ${SS_MERLIN_HOME}/etc/ss-merlin.conf /tmp/ss-merlin/ss-merlin.conf
   fi
   if [[ -f ${SS_MERLIN_HOME}/etc/shadowsocks/config.json ]]; then
-    cp ${SS_MERLIN_HOME}/etc/shadowsocks/config.json /tmp/ss-merlin/shadowsocks/config.json
+    cp -a ${SS_MERLIN_HOME}/etc/shadowsocks/config.json /tmp/ss-merlin/shadowsocks/config.json
   fi
   git checkout master
   if [[ -f /tmp/ss-merlin/shadowsocks/config.json ]]; then
-    cp /tmp/ss-merlin/ss-merlin.conf ${SS_MERLIN_HOME}/etc/ss-merlin.conf
+    cp -a /tmp/ss-merlin/ss-merlin.conf ${SS_MERLIN_HOME}/etc/ss-merlin.conf
   fi
   if [[ -f /tmp/ss-merlin/shadowsocks/config.json ]]; then
-    cp /tmp/ss-merlin/shadowsocks/config.json ${SS_MERLIN_HOME}/etc/shadowsocks/config.json
+    cp -a /tmp/ss-merlin/shadowsocks/config.json ${SS_MERLIN_HOME}/etc/shadowsocks/config.json
   fi
 
   rm -f ${SS_MERLIN_HOME}/tools/do_upgrade.sh
